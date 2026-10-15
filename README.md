@@ -98,3 +98,18 @@ reported returns `403` — show that message too.
 You're expected to use AI tools while building this. But you should be able
 to explain, for any line in your component, *why* it's there and what
 happens if you delete it. We will ask.
+
+## Checking the Report Item page
+
+```
+npm test --workspace client
+npm run build --workspace client
+```
+
+The component tests cover creating and editing items, marking an item as
+claimed, displaying validation/duplicate/ownership errors, missing optional
+fields, failed loading, and preventing repeated submissions while saving.
+They mock the API and do not require MongoDB. For a live check, run the app,
+log in, report an item, then edit it from the Items page. A one-letter title
+should display the server's validation error; repeating a title and location
+should display the duplicate error.
