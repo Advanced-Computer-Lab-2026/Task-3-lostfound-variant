@@ -63,7 +63,7 @@ export default function ItemForm() {
           {CATEGORIES.map(c => <option key={c} value={c}>{capitalize(c)}</option>)}
         </select>
         <input className="input" name="location" placeholder="Location (optional)" value={form.location} onChange={onChange} />
-        <textarea className="input" name="description" placeholder="Description (optional)" rows={3} value={form.description} onChange={onChange} />
+        <textarea className="input" name="description" placeholder="Description (optional)" value={form.description} onChange={onChange} />
         {error && <div className="text-red-600 text-sm">{error}</div>}
         <button className="btn" type="submit">Save</button>
       </form>
