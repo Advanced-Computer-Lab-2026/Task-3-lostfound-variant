@@ -13,6 +13,9 @@ const CATEGORIES = ['electronics', 'clothing', 'documents', 'accessories', 'othe
 
 const label = s => s[0].toUpperCase() + s.slice(1)
 
+// fixed width so all the fields line up; shrink-0 stops the input squeezing it
+const fieldLabel = 'w-24 shrink-0 text-sm font-medium text-zinc-700'
+
 export default function ItemForm() {
   const nav = useNavigate()
   const { id } = useParams()
@@ -86,20 +89,35 @@ export default function ItemForm() {
     <div className="max-w-lg mx-auto card">
       <h1 className="text-xl font-semibold mb-4">{id ? 'Edit' : 'Report'} Item</h1>
       <form onSubmit={onSubmit} className="space-y-3">
-        <input className="input" name="title" placeholder="Title (e.g. Black backpack)" aria-label="Title"
-          value={form.title} onChange={onChange} disabled={loading} />
-        <select className="input" name="status" aria-label="Status"
-          value={form.status} onChange={onChange} disabled={loading}>
-          {STATUSES.map(s => <option key={s} value={s}>{label(s)}</option>)}
-        </select>
-        <select className="input" name="category" aria-label="Category"
-          value={form.category} onChange={onChange} disabled={loading}>
-          {CATEGORIES.map(c => <option key={c} value={c}>{label(c)}</option>)}
-        </select>
-        <input className="input" name="location" placeholder="Location (optional, e.g. Library 2nd floor)" aria-label="Location"
-          value={form.location} onChange={onChange} disabled={loading} />
-        <textarea className="input" name="description" placeholder="Description (optional)" aria-label="Description" rows={3}
-          value={form.description} onChange={onChange} disabled={loading} />
+        <label className="flex items-center gap-3">
+          <span className={fieldLabel}>Title</span>
+          <input className="input" name="title" placeholder="e.g. Black backpack"
+            value={form.title} onChange={onChange} disabled={loading} />
+        </label>
+        <label className="flex items-center gap-3">
+          <span className={fieldLabel}>Status</span>
+          <select className="input" name="status"
+            value={form.status} onChange={onChange} disabled={loading}>
+            {STATUSES.map(s => <option key={s} value={s}>{label(s)}</option>)}
+          </select>
+        </label>
+        <label className="flex items-center gap-3">
+          <span className={fieldLabel}>Category</span>
+          <select className="input" name="category"
+            value={form.category} onChange={onChange} disabled={loading}>
+            {CATEGORIES.map(c => <option key={c} value={c}>{label(c)}</option>)}
+          </select>
+        </label>
+        <label className="flex items-center gap-3">
+          <span className={fieldLabel}>Location</span>
+          <input className="input" name="location" placeholder="Optional, e.g. Library 2nd floor"
+            value={form.location} onChange={onChange} disabled={loading} />
+        </label>
+        <label className="flex items-start gap-3">
+          <span className={fieldLabel + ' pt-2'}>Description</span>
+          <textarea className="input" name="description" placeholder="Optional" rows={3}
+            value={form.description} onChange={onChange} disabled={loading} />
+        </label>
         {error && <div className="text-red-600 text-sm">{error}</div>}
         <button className="btn disabled:opacity-50" type="submit" disabled={loading || saving}>
           {saving ? 'Saving…' : 'Save'}
